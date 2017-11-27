@@ -1,0 +1,8 @@
+<svg class="background">
+  <text id="time" />
+  <text id="date" />
+  <text id="heart" />
+  <text id="resting-heart" />
+  <text id="battery" />
+  <text id="stepPercent" />
+</svg>

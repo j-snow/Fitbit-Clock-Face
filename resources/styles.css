@@ -1,0 +1,45 @@
+.background {
+  viewport-fill: black;
+}
+
+text {
+  text-length: 1000;
+  font-family: Colfax-Light;
+  fill: white;
+}
+
+#time {
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 55%;
+  font-size: 80;
+}
+
+#date {
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 70%;
+  font-size: 30;
+}
+
+#heart {
+  text-length: 32;
+  x: 0%+5;
+  y: 100%-5;
+}
+
+#resting-heart {
+  y: 100%-5;
+}
+#battery {
+  x: 0%;
+  y: 10%;
+}
+
+#stepPercent {
+  text-anchor: end;
+  x: 100%;
+  y: 100%-5;
+}
