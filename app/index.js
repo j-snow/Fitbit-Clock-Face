@@ -27,6 +27,8 @@ function updateClock() {
   elDate.text = `${util.getDay3(dtDate.getDay())} ${dtDate.getDate()} ${util.getMonth3(dtDate.getMonth())}`;
   
   updateHorizontalBar('steps');
+  updateHorizontalBar('distance');
+  updateHorizontalBar('calories');
   updateVerticalBar('elevationGain');
   updateVerticalBar('activeMinutes');
   updateBattery();
@@ -74,7 +76,7 @@ function updateVerticalBar(sTodayStat)
   var iScreenHeight = elBG.getBBox().height;
   var iBarHeight = Math.floor(iPercent * (iScreenHeight/100));
   el.height = iBarHeight;
-  el.y = iScreenHeight-iBarHeight;
+  el.y = iScreenHeight/2-iBarHeight/2;
   
   colourStat(el, iPercent);
 }
@@ -90,6 +92,7 @@ function updateHorizontalBar(sTodayStat)
   var iScreenWidth = elBG.getBBox().width;
   var iBarWidth = Math.floor(iPercent * (iScreenWidth/100));
   el.width = iBarWidth;
+  el.x = iScreenWidth/2-iBarWidth/2;
   
   colourStat(el, iPercent);
 }
@@ -100,16 +103,16 @@ function colourStat(el, iPercentage)
   let iHours = dtDate.getHours();
   let iDayPercent = Math.floor(iHours/24*100);
 
-  if (iPercentage > iDayPercent)
+  if (iPercentage > 100)
   {
-    el.style.fill = "fb-cyan";
+    el.style.fill = "fb-mint";
   }
   else
   {
     let iPercentDiff = iDayPercent - iPercentage;
     if (iPercentDiff < 0)
     {
-      el.style.fill = "fb-mint";
+      el.style.fill = "fb-cyan";
     }
     else if (iPercentDiff < 10)
     {

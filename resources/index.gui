@@ -4,6 +4,8 @@
   <text id="heart" />
   <text id="resting-heart" />
   <text id="battery" />
+  <rect id="calories" x="0%" y="0%" width="0%" height="2%" fill="fb-white" />
+  <rect id="distance" x="0%" y="96%" width="0%" height="2%" fill="fb-white" />
   <rect id="steps" x="0%" y="98%" width="0%" height="2%" fill="fb-white" />
   <rect id="elevationGain" x="99%" y="0%" width="2%" height="0%" fill="fb-white" />
   <rect id="activeMinutes" x="0%" y="0%" width="2%" height="0%" fill="fb-white" />
