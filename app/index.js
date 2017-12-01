@@ -27,8 +27,8 @@ function updateClock() {
   elDate.text = `${util.getDay3(dtDate.getDay())} ${dtDate.getDate()} ${util.getMonth3(dtDate.getMonth())}`;
   
   updateSteps();
-  updateFloors();
-  updateActiveMinutes();
+  updateVerticalBar('elevationGain');
+  updateVerticalBar('activeMinutes');
   updateBattery();
 }
 
@@ -76,36 +76,20 @@ function updateSteps()
   colourStat(elSteps, iStepPercent);
 }
 
-function updateFloors()
+function updateVerticalBar(sTodayStat)
 {
-  let iFloors = (today.local.elevationGain || 0);
-  let iFloorGoal = (goals.elevationGain || 0);
-  let iFloorPercent = Math.floor(iFloors/iFloorGoal*100);
+  let iStat = (today.local[sTodayStat] || 0);
+  let iGoal = (goals[sTodayStat] || 0);
+  let iPercent = Math.floor(iStat/iGoal*100);
   
-  var elFloorBar = document.getElementById("floorBar");
+  var el = document.getElementById(sTodayStat);
   var elBG = document.getElementById("background");
   var iScreenheight = elBG.getBBox().height;
-  var iBarHeight = Math.floor(iFloorPercent * (iScreenheight/100));
-  elFloorBar.height = iBarHeight;
-  elFloorBar.y = iScreenheight-iBarHeight;
+  var iBarHeight = Math.floor(iPercent * (iScreenheight/100));
+  el.height = iBarHeight;
+  el.y = iScreenheight-iBarHeight;
   
-  colourStat(elFloorBar, iFloorPercent);
-}
-
-function updateActiveMinutes()
-{
-  let iActiveMinutes = (today.local.activeMinutes || 0);
-  let iActiveMinutesGoal = (goals.activeMinutes || 0);
-  let iActiveMinutesPercent = Math.floor(iActiveMinutes/iActiveMinutesGoal*100);
-  
-  var elActiveMinutesBar = document.getElementById("activeMinutesBar");
-  var elBG = document.getElementById("background");
-  var iScreenheight = elBG.getBBox().height;
-  var iBarHeight = Math.floor(iActiveMinutesPercent * (iScreenheight/100));
-  elActiveMinutesBar.height = iBarHeight;
-  elActiveMinutesBar.y = iScreenheight-iBarHeight;
-  
-  colourStat(elActiveMinutesBar, iActiveMinutesPercent);
+  colourStat(el, iPercent);
 }
 
 function colourStat(el, iPercentage)

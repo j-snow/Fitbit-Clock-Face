@@ -5,6 +5,6 @@
   <text id="resting-heart" />
   <text id="battery" />
   <text id="stepPercent" />
-  <rect id="floorBar" x="99%" y="0%" width="1%" height="0%" fill="fb-white" />
-  <rect id="activeMinutesBar" x="0%" y="0%" width="1%" height="0%" fill="fb-white" />
+  <rect id="elevationGain" x="99%" y="0%" width="1%" height="0%" fill="fb-white" />
+  <rect id="activeMinutes" x="0%" y="0%" width="1%" height="0%" fill="fb-white" />
 </svg>
