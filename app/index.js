@@ -27,6 +27,7 @@ function updateClock() {
   elDate.text = `${util.getDay3(dtDate.getDay())} ${dtDate.getDate()} ${util.getMonth3(dtDate.getMonth())}`;
   
   updateSteps();
+  updateFloors();
   updateBattery();
 }
 
@@ -40,17 +41,17 @@ oHeartRate.onreading = function() {
   elHeart.text = iHeartRate;
   elHeart.style.fill = util.heartRateColour(iHeartRate);
   
-  let iHRFontSize = Math.min(Math.round(iHeartRate/180*80), 80)
+  let iHRFontSize = Math.min(Math.round(iHeartRate/190*80), 80)
   elHeart.style.fontSize = iHRFontSize;
   elHRRest.text = '('+user.restingHeartRate+')';
   
   let iHRwidth = elHeart.getBBox().width;
   elHRRest.x = iHRwidth+10;
   
-  let iHRRestFontSize = iHRFontSize - iHeartRate/5;
+  let iHRRestFontSize = iHRFontSize - (iHeartRate-user.restingHeartRate)/2;
   elHRRest.style.fontSize = iHRRestFontSize;
   elHRRest.style.fill = "fb-mint";
-  
+
   if (iHRRestFontSize <=10)
   {
     elHRRest.style.display = "none";
@@ -76,15 +77,18 @@ function updateSteps()
   let iHours = dtDate.getHours();
   let iDayPercent = Math.floor(iHours/24*100);
 
-  
   if (iStepPercent > iDayPercent)
   {
-    elSteps.style.fill = "fb-mint";
+    elSteps.style.fill = "fb-cyan";
   }
   else
   {
     let iPercentDiff = iDayPercent - iStepPercent;
-    if (iPercentDiff < 10)
+    if (iPercentDiff < 0)
+    {
+      elSteps.style.fill = "fb-mint";
+    }
+    else if (iPercentDiff < 10)
     {
       elSteps.style.fill = "fb-yellow";
     }
@@ -95,6 +99,49 @@ function updateSteps()
     else
     {
       elSteps.style.fill = "fb-red";
+    }
+  }
+}
+
+function updateFloors()
+{
+  let iFloors = (today.local.elevationGain || 0);
+  let iFloorGoal = (goals.elevationGain || 0);
+  let iFloorPercent = Math.floor(iFloors/iFloorGoal*100);
+  
+  var elFloorBar = document.getElementById("floorBar");
+  var elBG = document.getElementById("background");
+  var iScreenheight = elBG.getBBox().height;
+  var iBarHeight = Math.floor(iFloorPercent * (iScreenheight/100));
+  elFloorBar.height = iBarHeight;
+  elFloorBar.y = iBarHeight;
+  
+  let dtDate = new Date();
+  let iHours = dtDate.getHours();
+  let iDayPercent = Math.floor(iHours/24*100);
+
+  if (iFloorPercent > iDayPercent)
+  {
+    elFloorBar.style.fill = "fb-cyan";
+  }
+  else
+  {
+    let iPercentDiff = iDayPercent - iFloorPercent;
+    if (iPercentDiff < 0)
+    {
+      elFloorBar.style.fill = "fb-mint";
+    }
+    else if (iPercentDiff < 10)
+    {
+      elFloorBar.style.fill = "fb-yellow";
+    }
+    else if (iPercentDiff < 20)
+    {
+      elFloorBar.style.fill = "fb-orange";
+    }
+    else
+    {
+      elFloorBar.style.fill = "fb-red";
     }
   }
 }

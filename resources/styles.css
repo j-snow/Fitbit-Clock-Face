@@ -1,4 +1,4 @@
-.background {
+#background {
   viewport-fill: black;
 }
 
@@ -40,6 +40,6 @@ text {
 
 #stepPercent {
   text-anchor: end;
-  x: 100%;
+  x: 97%;
   y: 100%-5;
 }

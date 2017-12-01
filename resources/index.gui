@@ -1,8 +1,9 @@
-<svg class="background">
+<svg id="background">
   <text id="time" />
   <text id="date" />
   <text id="heart" />
   <text id="resting-heart" />
   <text id="battery" />
   <text id="stepPercent" />
+  <rect id="floorBar" x="99%" y="0%" width="1%" height="0%" fill="fb-white" />
 </svg>
