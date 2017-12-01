@@ -65,7 +65,6 @@ oHeartRate.start();
 
 function updateSteps()
 {
-  
   let iSteps = (today.local.steps || 0);
   let iStepGoal = (goals.steps || 0);
   let iStepPercent = Math.floor(iSteps/iStepGoal*100);
@@ -73,34 +72,7 @@ function updateSteps()
   let elSteps = document.getElementById("stepPercent");
   elSteps.text = iStepPercent + '%';
   
-  let dtDate = new Date();
-  let iHours = dtDate.getHours();
-  let iDayPercent = Math.floor(iHours/24*100);
-
-  if (iStepPercent > iDayPercent)
-  {
-    elSteps.style.fill = "fb-cyan";
-  }
-  else
-  {
-    let iPercentDiff = iDayPercent - iStepPercent;
-    if (iPercentDiff < 0)
-    {
-      elSteps.style.fill = "fb-mint";
-    }
-    else if (iPercentDiff < 10)
-    {
-      elSteps.style.fill = "fb-yellow";
-    }
-    else if (iPercentDiff < 20)
-    {
-      elSteps.style.fill = "fb-orange";
-    }
-    else
-    {
-      elSteps.style.fill = "fb-red";
-    }
-  }
+  colourStat(elSteps, iStepPercent);
 }
 
 function updateFloors()
@@ -116,32 +88,37 @@ function updateFloors()
   elFloorBar.height = iBarHeight;
   elFloorBar.y = iBarHeight;
   
+  colourStat(elFloorBar, iFloorPercent);
+}
+
+function colourStat(el, iPercentage)
+{
   let dtDate = new Date();
   let iHours = dtDate.getHours();
   let iDayPercent = Math.floor(iHours/24*100);
 
-  if (iFloorPercent > iDayPercent)
+  if (iPercentage > iDayPercent)
   {
-    elFloorBar.style.fill = "fb-cyan";
+    el.style.fill = "fb-cyan";
   }
   else
   {
-    let iPercentDiff = iDayPercent - iFloorPercent;
+    let iPercentDiff = iDayPercent - iPercentage;
     if (iPercentDiff < 0)
     {
-      elFloorBar.style.fill = "fb-mint";
+      el.style.fill = "fb-mint";
     }
     else if (iPercentDiff < 10)
     {
-      elFloorBar.style.fill = "fb-yellow";
+      el.style.fill = "fb-yellow";
     }
     else if (iPercentDiff < 20)
     {
-      elFloorBar.style.fill = "fb-orange";
+      el.style.fill = "fb-orange";
     }
     else
     {
-      elFloorBar.style.fill = "fb-red";
+      el.style.fill = "fb-red";
     }
   }
 }
