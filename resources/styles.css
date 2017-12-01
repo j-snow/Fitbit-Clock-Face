@@ -12,7 +12,7 @@ text {
   text-length: 32;
   text-anchor: middle;
   x: 50%;
-  y: 55%;
+  y: 50%;
   font-size: 80;
 }
 
@@ -20,26 +20,24 @@ text {
   text-length: 32;
   text-anchor: middle;
   x: 50%;
-  y: 70%;
+  y: 65%;
   font-size: 30;
 }
 
 #heart {
   text-length: 32;
-  x: 2%+5;
-  y: 100%-5;
+  text-anchor: middle;
+  x: 50%;
+  y: 80%;
 }
 
 #resting-heart {
-  y: 100%-5;
+  text-anchor: middle;
+  x: 50%;
+  y: 80%;
 }
+
 #battery {
   x: 0%;
   y: 10%;
-}
-
-#stepPercent {
-  text-anchor: end;
-  x: 97%;
-  y: 100%-5;
 }

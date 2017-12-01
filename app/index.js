@@ -26,7 +26,7 @@ function updateClock() {
   
   elDate.text = `${util.getDay3(dtDate.getDay())} ${dtDate.getDate()} ${util.getMonth3(dtDate.getMonth())}`;
   
-  updateSteps();
+  updateHorizontalBar('steps');
   updateVerticalBar('elevationGain');
   updateVerticalBar('activeMinutes');
   updateBattery();
@@ -39,15 +39,14 @@ let elHeart = document.getElementById("heart");
 let elHRRest = document.getElementById("resting-heart");
 oHeartRate.onreading = function() {
   let iHeartRate = oHeartRate.heartRate;
+  let iHRFontSize = Math.min(Math.round(iHeartRate/190*80), 80)
   elHeart.text = iHeartRate;
   elHeart.style.fill = util.heartRateColour(iHeartRate);
-  
-  let iHRFontSize = Math.min(Math.round(iHeartRate/190*80), 80)
   elHeart.style.fontSize = iHRFontSize;
+
   elHRRest.text = '('+user.restingHeartRate+')';
-  
-  let iHRwidth = elHeart.getBBox().width;
-  elHRRest.x = iHRwidth+15;
+
+  elHRRest.y = elHeart.getBBox().y + elHRRest.getBBox().height+5;
   
   let iHRRestFontSize = iHRFontSize - (iHeartRate-user.restingHeartRate)/2;
   elHRRest.style.fontSize = iHRRestFontSize;
@@ -64,18 +63,6 @@ oHeartRate.onreading = function() {
 }
 oHeartRate.start();
 
-function updateSteps()
-{
-  let iSteps = (today.local.steps || 0);
-  let iStepGoal = (goals.steps || 0);
-  let iStepPercent = Math.floor(iSteps/iStepGoal*100);
-  
-  let elSteps = document.getElementById("stepPercent");
-  elSteps.text = iStepPercent + '%';
-  
-  colourStat(elSteps, iStepPercent);
-}
-
 function updateVerticalBar(sTodayStat)
 {
   let iStat = (today.local[sTodayStat] || 0);
@@ -84,10 +71,25 @@ function updateVerticalBar(sTodayStat)
   
   var el = document.getElementById(sTodayStat);
   var elBG = document.getElementById("background");
-  var iScreenheight = elBG.getBBox().height;
-  var iBarHeight = Math.floor(iPercent * (iScreenheight/100));
+  var iScreenHeight = elBG.getBBox().height;
+  var iBarHeight = Math.floor(iPercent * (iScreenHeight/100));
   el.height = iBarHeight;
-  el.y = iScreenheight-iBarHeight;
+  el.y = iScreenHeight-iBarHeight;
+  
+  colourStat(el, iPercent);
+}
+
+function updateHorizontalBar(sTodayStat)
+{
+  let iStat = (today.local[sTodayStat] || 0);
+  let iGoal = (goals[sTodayStat] || 0);
+  let iPercent = Math.floor(iStat/iGoal*100);
+  
+  var el = document.getElementById(sTodayStat);
+  var elBG = document.getElementById("background");
+  var iScreenWidth = elBG.getBBox().width;
+  var iBarWidth = Math.floor(iPercent * (iScreenWidth/100));
+  el.width = iBarWidth;
   
   colourStat(el, iPercent);
 }
