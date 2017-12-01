@@ -28,6 +28,7 @@ function updateClock() {
   
   updateSteps();
   updateFloors();
+  updateActiveMinutes();
   updateBattery();
 }
 
@@ -46,7 +47,7 @@ oHeartRate.onreading = function() {
   elHRRest.text = '('+user.restingHeartRate+')';
   
   let iHRwidth = elHeart.getBBox().width;
-  elHRRest.x = iHRwidth+10;
+  elHRRest.x = iHRwidth+15;
   
   let iHRRestFontSize = iHRFontSize - (iHeartRate-user.restingHeartRate)/2;
   elHRRest.style.fontSize = iHRRestFontSize;
@@ -86,9 +87,25 @@ function updateFloors()
   var iScreenheight = elBG.getBBox().height;
   var iBarHeight = Math.floor(iFloorPercent * (iScreenheight/100));
   elFloorBar.height = iBarHeight;
-  elFloorBar.y = iBarHeight;
+  elFloorBar.y = iScreenheight-iBarHeight;
   
   colourStat(elFloorBar, iFloorPercent);
+}
+
+function updateActiveMinutes()
+{
+  let iActiveMinutes = (today.local.activeMinutes || 0);
+  let iActiveMinutesGoal = (goals.activeMinutes || 0);
+  let iActiveMinutesPercent = Math.floor(iActiveMinutes/iActiveMinutesGoal*100);
+  
+  var elActiveMinutesBar = document.getElementById("activeMinutesBar");
+  var elBG = document.getElementById("background");
+  var iScreenheight = elBG.getBBox().height;
+  var iBarHeight = Math.floor(iActiveMinutesPercent * (iScreenheight/100));
+  elActiveMinutesBar.height = iBarHeight;
+  elActiveMinutesBar.y = iScreenheight-iBarHeight;
+  
+  colourStat(elActiveMinutesBar, iActiveMinutesPercent);
 }
 
 function colourStat(el, iPercentage)
